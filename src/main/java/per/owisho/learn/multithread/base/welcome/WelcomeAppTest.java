@@ -1,4 +1,4 @@
-package per.owisho.learn.multithread.base;
+package per.owisho.learn.multithread.base.welcome;
 
 public class WelcomeAppTest {
 
