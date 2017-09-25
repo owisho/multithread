@@ -2,13 +2,16 @@ package per.owisho.learn.multithread.base.visibility;
 
 import java.util.Random;
 
+import per.owisho.learn.multithread.tools.Tools;
+
 public class VisibilityDemo {
 
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println(new Random(50).nextLong());
 		
 		TimeConsumingTask timeConsumingTask = new TimeConsumingTask();
-		Thread thread = new Thread(new TimeConsumingTask());
+//		Thread thread = new Thread(new TimeConsumingTask()); 原书代码本人认为有误，自己修改后的代码
+		Thread thread = new Thread(timeConsumingTask);
 		thread.start();
 		
 		//指定的时间内任务没有执行结束的话，就将其取消
@@ -35,12 +38,7 @@ class TimeConsumingTask implements Runnable{
 		boolean isDone = false;
 		System.out.println("executing ...");
 		
-		//
-		try {
-			Thread.sleep(new Random(50).nextInt(1000));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		Tools.randomPause(1000);
 		
 		return isDone;
 	}
