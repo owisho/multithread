@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Tools {
 
-	//使当前线程休眠time毫秒
+	//浣垮綋鍓嶇嚎绋嬩紤鐪爐ime姣
 	public static void randomPause(int time){
 		try {
 			Thread.sleep(new Random(50).nextInt(time));
