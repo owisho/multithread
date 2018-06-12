@@ -5,6 +5,41 @@
 
 # volatile关键字
 1.保障线程对修饰变量的可见性（但不能代表被修饰的数据线程安全，可见后的数据仍然可以被多个线程修改，导致错误写入）   
+保障可见但是不能保证线程安全的代码如下：   
+```
+  //volatile变量自增运算测试
+  public class VolatileTest{
+    public static volatile int race = 0;
+    
+    public static void increase(){
+      race++;
+    }
+    
+    private static final int THREADS_COUNT = 20;
+    
+    public static void main(String[] args){
+      Thread[] threads = new Thread[THREADS_COUNT];
+      for(int i=0;i<THREADS_COUNT;i++){
+        threads[i] = new Thread(new Runable(){
+          @Override
+          public void run(){
+            for(int i=0;i<10000;i++){
+              increase();
+            }
+          }
+        })
+        threads[i].start();
+      }
+      
+      //等待所有累加线程都结束
+      while(Thread.activeCount()>1){
+        Thread.yield();
+      }
+      System.out.println(race);
+    }
+  }
+  
+```
 2.禁止虚拟机指令重排序   
 禁止重排序的伪代码如下：   
 ```
